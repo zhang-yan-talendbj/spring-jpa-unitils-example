@@ -1,4 +1,4 @@
-package com.kiroule.example.springjpaunitils.dao;
+package com.kiroule.example.springjpaunitils.persistence;
 
 /**
  * @author Igor Baiborodine
