@@ -2,10 +2,12 @@ package com.kiroule.springjpaunitils.persistence;
 
 import com.kiroule.example.springjpaunitils.domain.Book;
 import com.kiroule.example.springjpaunitils.domain.builder.BookBuilder;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,13 +32,15 @@ public class BookEntityMappingTest {
     private static final String TITLE = "Effective Java";
     private static final BigDecimal PRICE = new BigDecimal("50.0");
 
-
-    @Test
-    public void entityManagerShouldNotBeNull() {
-        assertNotNull(em);
+    @After
+    public void tearDown() {
+        if (em != null) {
+            em.clear();
+        }
     }
 
     @Test(expected = PersistenceException.class)
+    @Transactional
     public void entityMapping_shouldThrowPersistenceExceptionOnIsbnValueWithLengthGreaterThanMax() {
         final Book book = new BookBuilder(ISBN + "length is over the limit").build();
         em.persist(book);
