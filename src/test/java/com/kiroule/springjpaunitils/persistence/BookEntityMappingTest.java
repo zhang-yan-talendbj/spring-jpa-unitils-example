@@ -5,9 +5,10 @@ import com.kiroule.example.springjpaunitils.domain.builder.BookBuilder;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
+import org.unitils.UnitilsJUnit4TestClassRunner;
+import org.unitils.database.annotations.Transactional;
+import org.unitils.database.util.TransactionMode;
+import org.unitils.spring.annotation.SpringApplicationContext;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,14 +18,17 @@ import java.math.BigDecimal;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * JUnit-based entity mapping tests for the {@link Book} class.
+ * JUnit/Unitils-based entity mapping tests for the {@link Book} class.
  *
  * @author Igor Baiborodine
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(value = "classpath:/META-INF/spring-config.xml")
+
+@RunWith(UnitilsJUnit4TestClassRunner.class)
+@SpringApplicationContext({ "classpath:/META-INF/persistence-context.xml" })
+@Transactional(value = TransactionMode.ROLLBACK)
 public class BookEntityMappingTest {
-    @PersistenceContext
+
+    @PersistenceContext(unitName="persistenceUnitPU")
     private EntityManager em;
 
     private static final String ISBN = "978-0-321-35668-0";
@@ -40,7 +44,6 @@ public class BookEntityMappingTest {
     }
 
     @Test(expected = PersistenceException.class)
-    @Transactional
     public void entityMapping_shouldThrowPersistenceExceptionOnIsbnValueWithLengthGreaterThanMax() {
         final Book book = new BookBuilder(ISBN + "length is over the limit").build();
         em.persist(book);
