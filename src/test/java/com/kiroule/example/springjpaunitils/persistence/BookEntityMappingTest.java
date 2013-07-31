@@ -29,7 +29,6 @@ import static org.junit.Assert.assertNotNull;
  *
  */
 
-
 @RunWith(UnitilsJUnit4TestClassRunner.class)
 @SpringApplicationContext({ "classpath:persistence-context-test.xml" })
 @JpaEntityManagerFactory(persistenceUnit = "spring-jpa-unitils-pu")
