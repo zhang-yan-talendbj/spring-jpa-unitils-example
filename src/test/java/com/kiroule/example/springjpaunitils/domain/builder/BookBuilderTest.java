@@ -1,7 +1,6 @@
-package com.kiroule.springjpaunitils.domain.builder;
+package com.kiroule.example.springjpaunitils.domain.builder;
 
 import com.kiroule.example.springjpaunitils.domain.Book;
-import com.kiroule.example.springjpaunitils.domain.builder.BookBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

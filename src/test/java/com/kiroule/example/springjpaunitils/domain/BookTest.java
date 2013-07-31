@@ -1,7 +1,6 @@
-package com.kiroule.springjpaunitils.domain;
+package com.kiroule.example.springjpaunitils.domain;
 
 import com.google.common.testing.EqualsTester;
-import com.kiroule.example.springjpaunitils.domain.Book;
 import com.kiroule.example.springjpaunitils.domain.builder.BookBuilder;
 import org.junit.After;
 import org.junit.Before;
