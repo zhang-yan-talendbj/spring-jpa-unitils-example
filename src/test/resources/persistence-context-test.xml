@@ -24,11 +24,15 @@
 	<context:component-scan base-package="com.kiroule.example.springjpaunitils" />
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-		destroy-method="close" p:driverClass="${database.driver}" p:jdbcUrl="${database.url}"
-		p:user="${database.user}" p:password="${database.pwd}"
-		p:initialPoolSize="${database.initialSize}" p:minPoolSize="${database.initialSize}"
-		p:maxPoolSize="${database.maxActive}" p:maxIdleTime="${database.maxWait}" />
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"	destroy-method="close"
+        p:driverClass="${database.driver}"
+        p:jdbcUrl="${database.url}"
+		p:user="${database.user}"
+        p:password="${database.pwd}"
+		p:initialPoolSize="${database.initialSize}"
+        p:minPoolSize="${database.initialSize}"
+		p:maxPoolSize="${database.maxActive}"
+        p:maxIdleTime="${database.maxWait}" />
 
 	<bean id="entityManagerFactory"
 		    class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"

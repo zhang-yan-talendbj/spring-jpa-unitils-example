@@ -6,21 +6,18 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.unitils.UnitilsJUnit4TestClassRunner;
-import org.unitils.database.DatabaseUnitils;
 import org.unitils.database.annotations.Transactional;
 import org.unitils.database.util.TransactionMode;
 import org.unitils.dbunit.annotation.DataSet;
-import org.unitils.dbunit.annotation.ExpectedDataSet;
 import org.unitils.orm.jpa.annotation.JpaEntityManagerFactory;
 import org.unitils.spring.annotation.SpringApplicationContext;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
-import java.math.BigDecimal;
-import java.sql.SQLException;
 
 import static org.junit.Assert.assertNotNull;
+import static com.kiroule.example.springjpaunitils.util.TestHelper.*;
 
 /**
  * JUnit/Unitils-based entity mapping tests for the {@link Book} class.
@@ -28,7 +25,6 @@ import static org.junit.Assert.assertNotNull;
  * @author Igor Baiborodine
  *
  */
-
 @RunWith(UnitilsJUnit4TestClassRunner.class)
 @SpringApplicationContext({ "classpath:persistence-context-test.xml" })
 @JpaEntityManagerFactory(persistenceUnit = "spring-jpa-unitils-pu")
@@ -36,12 +32,6 @@ public class BookEntityMappingTest {
 
     @PersistenceContext
     private EntityManager em;
-
-    // fixtures
-    private static final String ISBN = "978-0-321-35668-0";
-    private static final String AUTHOR = "Joshua Bloch";
-    private static final String TITLE = "Effective Java";
-    private static final BigDecimal PRICE = new BigDecimal("50.0");
 
     @After
     public void tearDown() {
@@ -69,10 +59,9 @@ public class BookEntityMappingTest {
     @Test(expected = PersistenceException.class)
     @DataSet(value = "/datasets/book.xml")
     @Transactional(TransactionMode.ROLLBACK)
-    public void entityMapping_shouldThrowPersistenceExceptionOnDuplicateIsbnValue() {
-        long id = 1L;
-        Book book = em.find(Book.class, id);
+    public void entityMapping_shouldThrowPersistenceExceptionOnDuplicateBook() {
+        Book book = em.find(Book.class, ID);
         assertNotNull(book);
-        em.persist(new BookBuilder(ISBN).build());
+        em.persist(getNewBook());
     }
 }

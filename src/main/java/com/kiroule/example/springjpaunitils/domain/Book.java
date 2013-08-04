@@ -14,6 +14,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 @Entity
 @Table(name="BOOK")
+@NamedQuery(name="Book.readByIsbn", query = "select b from Book b where b.isbn = :isbn")
 public class Book implements Serializable, Comparable<Book> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

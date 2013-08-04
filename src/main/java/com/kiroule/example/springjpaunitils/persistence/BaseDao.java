@@ -5,9 +5,9 @@ import java.io.Serializable;
 /**
  * @author Igor Baiborodine
  */
-public interface BaseDao<T, PK extends Serializable> {
+public interface BaseDao<T, ID extends Serializable> {
     T create(T t);
-    T read(PK id);
+    T read(ID id);
     T update(T t);
-    void delete(T t);
+    void delete(ID id);
 }
